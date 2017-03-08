@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+
+  elasticsearch:    
+    image: robertvilvert/elasticsearch:1.0
+    ports: 
+      - "9200:9200"
+    networks:
+      - elknet
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 1s
+      restart_policy:
+        condition: on-failure
+
+
+
+  logstash:
+    image: robertvilvert/logstash:1.0
+    ports:
+      - "5044:5044"
+    networks:
+      - elknet
+    tty: true
+    depends_on:
+      - elasticsearch
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 60s
+      restart_policy:
+        condition: on-failure
+
+
+  kibana:
+    image: robertvilvert/kibana:1.0
+    ports:
+      - "5601:5601"
+    networks:
+      - elknet
+    tty: true
+    depends_on:
+      - elasticsearch
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 60s
+      restart_policy:
+        condition: on-failure
+
+
+networks:
+  elknet:

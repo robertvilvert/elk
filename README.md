@@ -51,4 +51,4 @@ output.logstash:
 
 
 ##### OBS
-As confs estão preparadas para Perser de Nginx e Jboss. Mas você pode alterar de acordo com sua necessidade.
+As confs estão preparadas para Parser de Nginx e Jboss. Mas você pode alterar de acordo com sua necessidade.
